@@ -18,6 +18,19 @@
                     <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
                         {{ __('User') }}
                     </x-nav-link>
+                    
+                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
+                        {{ __('Role') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.*')">
+                        {{ __('Permission') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('playlist.index')" :active="request()->routeIs('playlist.*')">
+                        {{ __('Playlist') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('tag.index')" :active="request()->routeIs('tag.*')">
+                        {{ __('Tag') }}
+                    </x-nav-link>
                 </div>
             </div>
 

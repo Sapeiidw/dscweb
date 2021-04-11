@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -14,9 +15,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
+        $users = User::with('roles')
+                ->where('name','like',"%{$request->search}%")
+                ->paginate(15);
         return view('pages.user.index', compact('users'));
     }
 
@@ -27,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.user.create');
+        $roles = Role::all()->pluck("name");
+        return view('pages.user.create', compact("roles"));
     }
 
     /**
@@ -44,13 +48,13 @@ class UserController extends Controller
             'password' => "required|min:8|confirmed",
             'foto_profile' => "nullable|image|mimes:jpg,png,jpeg,gif",
         ]);
-        
+        $request->role = $request->role !== null ? $request->role : 'user';
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'foto_profile' => $request->foto_profile ? request()->file('foto_profile')->store('image/user') : null,
-        ]);
+        ])->syncRoles($request->role);
 
         return back()->with('success','Selamat user berhasil di buat!!');
     }
@@ -74,8 +78,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('pages.user.edit', compact('user'));
+        $roles = Role::all();
+        $user = User::with('roles')->find($id);
+        return view('pages.user.edit', compact('user','roles'));
     }
 
     /**
@@ -87,14 +92,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+
         $request->validate([
             'name' => "required|string",
             'email' => "required|email|unique:users,email,".$id,
             'foto_profile' => "nullable|image|mimes:jpg,png,jpeg,gif",
         ]);
-        
-        $user = User::find($id);
-        
+        $request->role = $request->role !== null ? $request->role : 'user';
+
         if ($request->foto_profile) {
             Storage::delete($user->foto_profile);
             $foto = request()->file('foto_profile')->store('image/user');
@@ -103,12 +109,11 @@ class UserController extends Controller
         }else {
             $foto = null;
         }
-        
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'foto_profile' => $foto,
-        ]);
+        ])->syncRoles($request->role);
 
         return back()->with('success','Selamat user berhasil di edit!!');
     }

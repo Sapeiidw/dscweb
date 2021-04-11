@@ -41,6 +41,21 @@
                                 name="password_confirmation" required />
             </div>
 
+            @role('super-admin')
+            <div class="mt-4">
+                <x-label for="role" value="Role" />
+                <select name="role" id="role"
+                    class="block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
+                    @foreach ($roles as $role)
+                        <option value="{{ $role }}">{{ $role }}</option>
+                    @endforeach
+                </select>
+                @error('role')
+                    <span class="text-red-900 p-2">{{ $message }}</span>
+                @enderror
+            </div>
+            @endrole
+
             <div class="mt-4">
                 <x-label for="foto_profile" value="Profile" />
                 <input class="block w-full mt-1" type="file" name="foto_profile" value="{{ old('foto_profile') }}" />

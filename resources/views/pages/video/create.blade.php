@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-alert />
     <div class="w-2/3 mx-auto">
-        <form action="{{ route('playlist.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('video.store') }}" method="post">
             @csrf
             <div class="mt-4">
                 <x-label for="name" value="Name" />
@@ -11,38 +11,48 @@
                 @enderror
             </div>
             <div class="mt-4">
-                <x-label for="description" value="Description" />
-                <textarea name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
-                @error('description')
+                <x-label for="code" value="code" />
+                <textarea name="code" id="code" cols="30" rows="10">{{ old('code') }}</textarea>
+                @error('code')
                     <span class="text-red-900 p-2">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mt-4">
-                <x-label for="tag" value="Tag" />
-                <select class="block w-full mt-1 js-example-basic-multiple" name="tags[]" multiple="multiple">
-                    @foreach ($tags as $tag)
-                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                <x-label for="playlist" value="playlist" />
+                <select class="block w-full mt-1 js-example-basic-multiple" name="playlists[]" multiple="multiple">
+                    @foreach ($playlists as $playlist)
+                        <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
                     @endforeach
                   </select>
-                @error('tags')
+                @error('playlists')
                     <span class="text-red-900 p-2">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mt-4">
-                <x-label for="tag" value="Tag" />
-                <select class="block w-full mt-1 js-example-basic-multiple" name="genre[]" multiple="multiple">
+                <x-label for="episode" value="episode" />
+                <x-input class="block w-full mt-1" type="text" name="episode" :value="old('episode')"/>
+                @error('episode')
+                    <span class="text-red-900 p-2">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mt-4">
+                <x-label for="duration" value="duration" />
+                <x-input class="block w-full mt-1" type="text" name="duration" :value="old('duration')"/>
+                @error('duration')
+                    <span class="text-red-900 p-2">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mt-4">
+                <x-label for="available_for" value="available_for" />
+                <select name="available_for" id="available_for">
+                    <option value="free">Free</option>
+                    <option value="premium">Premium</option>
                 </select>
-                @error('tags')
-                    <span class="text-red-900 p-2">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mt-4">
-                <x-label for="thumbnail" value="Thumbnail" />
-                <input class="block w-full mt-1" type="file" name="thumbnail" value="{{ old('thumbnail') }}" />
-                @error('thumbnail')
+                @error('available_for')
                     <span class="text-red-900 p-2">{{ $message }}</span>
                 @enderror
             </div>
@@ -55,10 +65,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.js-example-basic-multiple').select2({
-                tags: true,
-                tokenSeparators: [',', ' ']
-            });
+            $('.js-example-basic-multiple').select2();
         });
     </script>
 </x-app-layout>

@@ -80,14 +80,21 @@
                                     </span>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    @foreach ($item->permissions as $permission)
+                                    @forelse ($item->permissions as $permission)
                                         <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight">
+                                        class="relative inline-block px-3 py-1 m-1 font-semibold text-indigo-900 leading-tight">
                                         <span aria-hidden
                                             class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
                                         <span class="relative">{{ $permission->name }}</span>
                                         </span>
-                                    @endforeach
+                                    @empty
+                                        <span
+                                        class="relative inline-block px-3 py-1 m-1 font-semibold text-indigo-900 leading-tight">
+                                        <span aria-hidden
+                                            class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">everythings</span>
+                                        </span>
+                                    @endforelse
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                     <div class="flex flex-row w-20 justify-between">

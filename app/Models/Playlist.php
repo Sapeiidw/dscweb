@@ -14,6 +14,7 @@ class Playlist extends Model
         'slug',
         'description',
         'thumbnail',
+        'genre',
         'user_id',
     ];
 
@@ -25,5 +26,10 @@ class Playlist extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class,'playlist_tag');
+    }
+
+    public function videos()
+    {
+        return $this->belongsToMany(Video::class,"playlist_video");
     }
 }

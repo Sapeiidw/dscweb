@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Playlist;
 use App\Models\Tag;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -17,7 +18,7 @@ class PlaylistController extends Controller
      */
     public function index(Request $request)
     {
-        $playlists = Playlist::with('user','tags')
+        $playlists = Playlist::with('user','tags','videos')
                     ->where('name','like',"%{$request->search}%")
                     ->paginate(15);
         return view('pages.playlist.index', compact('playlists'));
@@ -47,6 +48,7 @@ class PlaylistController extends Controller
             'description' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:png,jpg,jpeg',
             'tags' => 'nullable|array',
+            'genre' => 'nullable|array',
         ]);
 
         $playlist = Playlist::create([
@@ -55,6 +57,7 @@ class PlaylistController extends Controller
             'description' => $request->description,
             'thumbnail' => $request->thumbnail ? request()->file('thumbnail')->store('image/playlist') : null,
             'user_id' => auth()->user()->id,
+            'genre' => collect($request->genre)->implode(','),
         ]);
         $playlist->tags()->sync($request->tags);
 
@@ -69,7 +72,9 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
-        return view('pages.playlist.index',compact('playlist'));
+        $playlist->with('videos','tags','user')->orderBy('episode');
+        // $video = '';
+        return view('pages.playlist.show',compact('playlist'));
     }
 
     /**
@@ -131,5 +136,20 @@ class PlaylistController extends Controller
         $playlist->tags()->detach();
         $playlist->delete();
         return back()->with('success','Playlist was deleted!!');
+    }
+
+    public function video(Playlist $playlist, Video $video)
+    {
+        if ($video->available_for == "premium") {
+            if (auth()->user()->can('watch-premium')) {
+                return "you r premium user";
+            }
+            return "need premium";
+        } else {
+            return "free";
+        }
+        
+        // $playlist->with('videos','tags','user')->orderBy('episode');
+        // return view('pages.playlist.show', compact('playlist','video'));
     }
 }

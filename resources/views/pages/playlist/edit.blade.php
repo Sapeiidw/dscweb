@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-alert />
     <div class="w-2/3 mx-auto">
-        <form action="{{ route('playlist.update', $playlist->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('playlist.update', $playlist->slug) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="mt-4">
@@ -24,7 +24,7 @@
                 <x-label for="tag" value="Tag" />
                 <select class="block w-full mt-1 js-example-basic-multiple" name="tags[]" multiple="multiple">
                     @foreach ($tags as $tag)
-                        <option {{ $playlist->tags()->find($tag->id) ? "selected" : "" }}  value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        <option {{ $playlist->tags()->find($tag->id) ? "selected" : "" }}  value="{{ $tag->name }}">{{ $tag->name }}</option>
                     @endforeach
                   </select>
                 @error('tags')
@@ -49,7 +49,10 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
+            $('.js-example-basic-multiple').select2({
+                tags: true,
+                tokenSeparators: [',', ' ']
+            });
         });
     </script>
 </x-app-layout>

@@ -30,7 +30,7 @@ class VideoSeeder extends Seeder
                 'code' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3VTkBuxU4yk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 'duration' => '5:00',
                 'episode' => 1,
-                'available_for' => 'permium',
+                'available_for' => 'premium',
             ],
             [
                 'name' => 'Setting Dashboard',
@@ -38,7 +38,7 @@ class VideoSeeder extends Seeder
                 'code' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3VTkBuxU4yk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 'duration' => '5:00',
                 'episode' => 2,
-                'available_for' => 'permium',
+                'available_for' => 'premium',
             ],
         ]);
         Video::find(1)->playlists()->sync(1);

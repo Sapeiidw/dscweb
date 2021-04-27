@@ -47,10 +47,6 @@
                                     Tag
                                 </th>
                                 <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
-                                    Genre
-                                </th>
-                                <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Action
                                 </th>
@@ -95,16 +91,7 @@
                                         </span>
                                     @endforeach
                                 </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    @foreach (explode(',',$item->genre) as $genre)
-                                        <span
-                                        class="relative inline-block px-3 py-1 m-1 font-semibold text-indigo-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">{{ $genre }}</span>
-                                        </span>
-                                    @endforeach
-                                </td>
+
                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                     <div class="flex flex-row w-20 justify-between">
                                         @can('edit-playlist')

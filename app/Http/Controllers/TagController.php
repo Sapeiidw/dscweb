@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
+use App\Models\Playlist;
+use Spatie\Tags\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -100,7 +101,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        $tag->playlists()->detach();
+        $playlist = new Playlist();
+        $playlist->detachTag($tag);
         $tag->delete();
         return back()->with('success','Tag was Deleted!!');
     }

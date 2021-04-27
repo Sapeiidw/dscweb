@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
-use App\Models\Tag;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Tags\Tag;
 
 class PlaylistController extends Controller
 {
@@ -18,7 +18,7 @@ class PlaylistController extends Controller
      */
     public function index(Request $request)
     {
-        $playlists = Playlist::with('user','tags','videos')
+        $playlists = Playlist::with('tags','user','videos')
                     ->where('name','like',"%{$request->search}%")
                     ->paginate(15);
         return view('pages.playlist.index', compact('playlists'));
@@ -31,7 +31,7 @@ class PlaylistController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
+        $tags =  Tag::all();
         return view('pages.playlist.create', compact('tags'));
     }
 
@@ -59,7 +59,7 @@ class PlaylistController extends Controller
             'user_id' => auth()->user()->id,
             'genre' => collect($request->genre)->implode(','),
         ]);
-        $playlist->tags()->sync($request->tags);
+        $playlist->syncTags($request->tags);
 
         return back()->with('success','Playlist was created!!');
     }
@@ -73,7 +73,6 @@ class PlaylistController extends Controller
     public function show(Playlist $playlist)
     {
         $playlist->with('videos','tags','user')->orderBy('episode');
-        // $video = '';
         return view('pages.playlist.show',compact('playlist'));
     }
 
@@ -119,7 +118,7 @@ class PlaylistController extends Controller
             'description' => $request->description,
             'thumbnail' => $thumbnail,
         ]);
-        $playlist->tags()->sync($request->tags);
+        $playlist->syncTags($request->tags);
 
         return back()->with('success','Playlist was updated!!');
     }

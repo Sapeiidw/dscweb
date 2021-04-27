@@ -20,7 +20,6 @@ class CreatePlaylistsTable extends Migration
             $table->text("description");
             $table->string("thumbnail")->nullable();
             $table->foreignId("user_id");
-            $table->string("genre");
             $table->timestamps();
         });
     }

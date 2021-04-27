@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\RoleController;
@@ -21,6 +22,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('playlist/{playlist:slug}/episode-{video:episode}', [PlaylistController::class, "video"])->name('playlist.video');
     Route::resource('tag', TagController::class)->shallow();
     Route::resource('video', VideoController::class)->shallow();
+
+    
+    Route::get('payment', [PaymentController::class, 'payment']);
+    Route::post('subscribe', [PaymentController::class, 'subscribe']);
 });
 
 

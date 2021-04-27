@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            TagSeeder::class,
+            // TagSeeder::class,
             PlaylistSeeder::class,
             VideoSeeder::class,
         ]);

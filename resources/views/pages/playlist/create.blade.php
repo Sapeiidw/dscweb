@@ -21,18 +21,6 @@
             <div class="mt-4">
                 <x-label for="tag" value="Tag" />
                 <select class="block w-full mt-1 js-example-basic-multiple" name="tags[]" multiple="multiple">
-                    @foreach ($tags as $tag)
-                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                    @endforeach
-                  </select>
-                @error('tags')
-                    <span class="text-red-900 p-2">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mt-4">
-                <x-label for="tag" value="Tag" />
-                <select class="block w-full mt-1 js-example-basic-multiple" name="genre[]" multiple="multiple">
                 </select>
                 @error('tags')
                     <span class="text-red-900 p-2">{{ $message }}</span>

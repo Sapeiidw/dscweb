@@ -29,33 +29,28 @@
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
                         <thead>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <x-tr>
+                                <x-th>
                                     Name
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
+                                </x-th>
+                                <x-th>
                                     Description
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
+                                </x-th>
+                                <x-th>
                                     Video
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
+                                </x-th>
+                                <x-th>
                                     Tag
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Action
-                                </th>
-                            </tr>
+                                </x-th>
+                            </x-tr>
                         </thead>
                         <tbody>
                             @forelse ($playlists as $item)
-                            <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            <x-tr>
+                                <x-td>
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
@@ -71,28 +66,23 @@
                                             </a>
                                         </div>
                                     </div>
-                                </td>
+                                </x-td>
 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     <p class="text-gray-900 whitespace-no-wrap">{{ $item->description }}</p>                               
-                                </td>
+                                </x-td>
 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     <p class="text-gray-900 whitespace-no-wrap">{{ $item->videos->count() }}</p>                               
-                                </td>
+                                </x-td>
                                 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     @foreach ($item->tags as $tag)
-                                        <span
-                                        class="relative inline-block px-3 py-1 m-1 font-semibold text-indigo-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">{{ $tag->name }}</span>
-                                        </span>
+                                        <x-badge>{{ $tag->name }}</x-badge>
                                     @endforeach
-                                </td>
+                                </x-td>
 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     <div class="flex flex-row w-20 justify-between">
                                         @can('edit-playlist')
                                         <a href="{{ route('playlist.edit',$item->slug) }}" class="text-blue-900">Edit</a>    
@@ -106,12 +96,12 @@
                                         @endcan
                                         
                                     </div>
-                                </td>
-                            </tr>    
+                                </x-td>
+                            </x-tr>    
                             @empty
-                               <tr>
+                               <x-tr>
                                    Data gak ada boss
-                                </tr> 
+                                </x-tr> 
                             @endforelse   
                         </tbody>
                     </table>

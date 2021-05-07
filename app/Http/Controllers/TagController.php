@@ -44,7 +44,6 @@ class TagController extends Controller
         
         $tag = Tag::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
         ]);
         
         return back()->with('success','Tag was created!!');
@@ -87,7 +86,6 @@ class TagController extends Controller
         
         $tag->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
         ]);
         
         return back()->with('success','Tag was updated!!');

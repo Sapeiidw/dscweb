@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white z-50 fixed top-0 left-0 right-0">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full px-4">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -15,7 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
+                    <x-nav-link :href="route('playlist.index')" :active="request()->routeIs('playlist.*')">
+                        {{ __('Playlist') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
+                        {{ __('About') }}
+                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
                         {{ __('User') }}
                     </x-nav-link>
                     
@@ -24,20 +33,18 @@
                     </x-nav-link>
                     <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.*')">
                         {{ __('Permission') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('playlist.index')" :active="request()->routeIs('playlist.*')">
-                        {{ __('Playlist') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('tag.index')" :active="request()->routeIs('tag.*')">
+                    </x-nav-link> --}}
+                    
+                    {{-- <x-nav-link :href="route('tag.index')" :active="request()->routeIs('tag.*')">
                         {{ __('Tag') }}
                     </x-nav-link>
                     <x-nav-link :href="route('video.index')" :active="request()->routeIs('video.*')">
                         {{ __('Video') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                 </div>
             </div>
-
-            <!-- Settings Dropdown -->
+            @auth
+                <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -53,10 +60,12 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('profile.index')" :active="request()->routeIs('profile.*')">
+                            {{ __('profile') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -66,6 +75,8 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endauth
+            
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -95,13 +106,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                 </div>
-
+                @auth
                 <div class="ml-3">
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
+                @endauth
+                
             </div>
-
+            @auth
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
@@ -114,6 +127,8 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @endauth
+            
         </div>
     </div>
 </nav>

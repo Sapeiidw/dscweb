@@ -46,7 +46,8 @@ class VideoController extends Controller
             'name' => 'required|string',
             'code' => 'required|unique:videos,code',
             'duration' => 'required|string',
-            'playlists' => 'nullable|array',
+            'playlists' => 'required',
+            'epsiode' => 'required|numeric',
         ]);
 
         $video = Video::create([

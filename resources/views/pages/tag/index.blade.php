@@ -29,30 +29,23 @@
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
                         <thead>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <x-tr>
+                                <x-th>
                                     Name
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Action
-                                </th>
-                            </tr>
+                                </x-th>
+                            </x-tr>
                         </thead>
                         <tbody>
                             @forelse ($tags as $item)
-                            <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    <span
-                                    class="relative inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight">
-                                    <span aria-hidden
-                                        class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
-                                    <span class="relative">{{ $item->name }}</span>
-                                    </span>
-                                </td>
+                            <x-tr>
+                                <x-td>
+                                    <x-badge>{{ $item->name }}</x-badge>
+                                </x-td>
                                 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     <div class="flex flex-row w-20 justify-between">
                                         @can('edit-tag')
                                         <a href="{{ route('tag.edit',$item->id) }}" class="text-blue-900">Edit</a>    
@@ -64,14 +57,15 @@
                                             <button type="submit" onclick="return confirm('Are u Sure!!')" class="text-red-900">Delete</button>
                                         </form>
                                         @endcan
-                                        
                                     </div>
-                                </td>
-                            </tr>    
+                                </x-td>
+                            </x-tr>    
                             @empty
-                               <tr>
-                                   Data gak ada boss
-                                </tr> 
+                                <x-tr>
+                                    <x-td>
+                                        Data gak ada boss
+                                    </x-td>
+                                </x-tr> 
                             @endforelse   
                         </tbody>
                     </table>

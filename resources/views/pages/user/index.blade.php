@@ -29,37 +29,31 @@
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
                         <thead>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <x-tr>
+                                <x-th>
                                     Name
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Email
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Created at
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Status
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Role
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Action
-                                </th>
-                            </tr>
+                                </x-th>
+                            </x-tr>
                         </thead>
                         <tbody>
                             @forelse ($users as $item)
-                            <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            <x-tr>
+                                <x-td>
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
                                             <img class="w-full h-full rounded-full"
@@ -70,46 +64,27 @@
                                                 alt="" />
                                         </div>
                                         <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap">
-                                                {{ $item->name }}
-                                            </p>
+                                            {{ $item->name }}
                                         </div>
                                     </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ $item->email }}</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">
-                                        {{ $item->created_at }}
-                                    </p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                </x-td>
+                                <x-td>
+                                    {{ $item->email }}
+                                </x-td>
+                                <x-td>
+                                    {{ $item->created_at }}
+                                </x-td>
+                                <x-td>
                                     @if ($item->email_verified_at)
-                                        <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">Verified</span>
-                                        </span>
+                                        <x-badge>Verified</x-badge>
                                     @else
-                                        <span
-                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                        <span aria-hidden
-                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">Not Verivied</span>
-                                        </span>
+                                        <x-badge>Not Verivied</x-badge>
                                     @endif
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                    <span
-                                    class="relative inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight">
-                                    <span aria-hidden
-                                        class="absolute inset-0 bg-indigo-200 opacity-50 rounded-full"></span>
-                                    <span class="relative">{{ $item->roles->first()->name }}</span>
-                                    </span>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                </x-td>
+                                <x-td>
+                                    <x-badge>{{ $item->roles->first()->name }}</x-badge>
+                                </x-td>
+                                <x-td>
                                     <div class="flex flex-row w-20 justify-between">
                                         <a href="{{ route('user.edit',$item->id) }}" class="text-blue-900">Edit</a>
                                         <form action="{{ route('user.destroy', $item->id) }}" method="post">
@@ -118,12 +93,12 @@
                                             <button type="submit" onclick="return confirm('Are u Sure!!')" class="text-red-900">Delete</button>
                                         </form>
                                     </div>
-                                </td>
-                            </tr>    
+                                </x-td>
+                            </x-tr>    
                             @empty
-                               <tr>
+                               <x-tr>
                                    Data gak ada boss
-                                </tr> 
+                                </x-tr> 
                             @endforelse   
                         </tbody>
                     </table>

@@ -29,44 +29,40 @@
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
                         <thead>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <x-tr>
+                                <x-th>
                                     Video
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
+                                </x-th>
+                                <x-th>
                                     Name
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider flex-wrap">
+                                </x-th>
+                                <x-th>
                                     Playlist
-                                </th>
-                                <th
-                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                </x-th>
+                                <x-th>
                                     Action
-                                </th>
-                            </tr>
+                                </x-th>
+                            </x-tr>
                         </thead>
                         <tbody>
                             @forelse ($videos as $item)
-                            <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            <x-tr>
+                                <x-td>
                                     {!! $item->code !!}
-                                </td>
+                                </x-td>
 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     <a href="{{ route('video.show',$item->id) }}" class="text-gray-900 whitespace-no-wrap">
                                         {{ $item->name }}
                                     </a>
-                                </td>
+                                </x-td>
                                 
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <x-td>
                                     @foreach ($item->playlists as $playlist)
                                         {{ $playlist->name }}
                                     @endforeach
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                </x-td>
+                                <x-td>
                                     <div class="flex flex-row w-20 justify-between">
                                         @can('edit-video')
                                         <a href="{{ route('video.edit',$item->id) }}" class="text-blue-900">Edit</a>    
@@ -80,12 +76,12 @@
                                         @endcan
                                         
                                     </div>
-                                </td>
-                            </tr>    
+                                </x-td>
+                            </x-tr>    
                             @empty
-                               <tr>
+                               <x-tr>
                                    Data gak ada boss
-                                </tr> 
+                                </x-tr> 
                             @endforelse   
                         </tbody>
                     </table>

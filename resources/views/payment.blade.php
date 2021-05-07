@@ -5,17 +5,18 @@
         .StripeElement {
             box-sizing: border-box;
 
-            height: 40px;
+            height: auto;
 
-            padding: 10px 12px;
+            padding: 13px;
 
-            border: 1px solid transparent;
-            border-radius: 4px;
+            border: 1px solid rgba(209, 213, 219,1);
+            border-radius: 0.375rem/* 6px */;
             background-color: white;
 
-            box-shadow: 0 1px 3px 0 #e6ebf1;
-            -webkit-transition: box-shadow 150ms ease;
             transition: box-shadow 150ms ease;
+
+            --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
         }
 
         .StripeElement--focus {
@@ -31,40 +32,30 @@
         }
     </style>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Subscribe</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                            <select name="plan" class="form-control" id="subscription-plan">
-                                @foreach($plans as $key=>$plan)
-                                    <option value="{{$key}}">{{$plan}}</option>
-                                @endforeach
-                            </select>
-
-                        <input placeholder="Card Holder" class="form-control" id="card-holder-name" type="text">
-
-                        <!-- Stripe Elements Placeholder -->
-                        <div id="card-element"></div>
-
-                        <button class="mt-2 btn btn-sm btn-primary" id="card-button" data-secret="{{ $intent->client_secret }}">
-                            Subscribe
-                        </button>
-
-
-
-                    </div>
-                </div>
+    <div class="container mx-auto my-4 px-4 sm:px-8">
+        <x-alert/>
+        <div class="bg-white shadow rounded p-4 flex flex-col justify-center">
+            <div class="mt-4">
+                <x-label for="subcscription-plan">Plan</x-label>
+                <select name="plan" id="subscription-plan" class='w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'>
+                    @foreach($plans as $key=>$plan)
+                        <option value="{{$key}}">{{$plan}}</option>
+                    @endforeach
+                </select>
             </div>
-        </div>
+            <div class="mt-4">
+                <x-label for="card-holder-name">Name</x-label>
+                <x-input placeholder="Card Holder" id="card-holder-name" type="text" class="w-full"/>
+            </div>
+            
+            <div class="mt-4">
+                <!-- Stripe Elements Placeholder -->
+                <x-label for="card-element">Card</x-label>
+                <div id="card-element"></div>
+            </div>
+            
+            <x-button class="mt-4" id="card-button" data-secret="{{ $intent->client_secret }}">Pay</x-button>
+        </div>            
     </div>
 
     <script>

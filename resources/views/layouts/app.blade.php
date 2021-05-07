@@ -23,7 +23,7 @@
             
 
             <!-- Page Content -->
-            <div class="flex">
+            <div class="flex mt-12">
                 @include('layouts.sidebar')
                 <div class="w-4/5">
                     {{-- <header class="bg-white shadow">

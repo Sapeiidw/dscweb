@@ -70,10 +70,17 @@ class PlaylistController extends Controller
      * @param  \App\Models\Playlist  $playlist
      * @return \Illuminate\Http\Response
      */
-    public function show(Playlist $playlist)
+    public function show(Playlist $playlist, Video $video = null)
     {
-        $playlist->with('videos','tags','user')->orderBy('episode');
-        return view('pages.playlist.show',compact('playlist'));
+        $playlist->with('videos','tags','user');
+        if ($video !== null) {
+            if ($video->available_for == "premium" and !auth()->user()->subscribed('primary')) {
+                return "need premium";
+            } 
+        } else {
+            return view('pages.playlist.show', compact('playlist','video'));
+        }
+        return view('pages.playlist.show', compact('playlist','video' ));
     }
 
     /**
@@ -137,18 +144,4 @@ class PlaylistController extends Controller
         return back()->with('success','Playlist was deleted!!');
     }
 
-    public function video(Playlist $playlist, Video $video)
-    {
-        if ($video->available_for == "premium") {
-            if (auth()->user()->can('watch-premium')) {
-                return "you r premium user";
-            }
-            return "need premium";
-        } else {
-            return "free";
-        }
-        
-        // $playlist->with('videos','tags','user')->orderBy('episode');
-        // return view('pages.playlist.show', compact('playlist','video'));
-    }
 }

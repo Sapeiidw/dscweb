@@ -39,4 +39,11 @@ class PaymentController extends Controller
         ]);
 
     }
+
+    public function unsubscribe(Request $request)
+    {
+        auth()->user()->subscription('primary')->cancel();
+        return back()->with("success", "Unsubscribe success!!");
+    }
+
 }

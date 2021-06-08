@@ -30,5 +30,8 @@ class PlaylistSeeder extends Seeder
                 'user_id' => 3,
             ],
         ]);
+
+        Playlist::find(1)->syncTags(['laravel','mysql']);
+        Playlist::find(2)->syncTags(['laravel','english']);
     }
 }

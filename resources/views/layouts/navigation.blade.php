@@ -24,23 +24,6 @@
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                         {{ __('About') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
-                        {{ __('User') }}
-                    </x-nav-link>
-                    
-                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
-                        {{ __('Role') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.*')">
-                        {{ __('Permission') }}
-                    </x-nav-link> --}}
-                    
-                    {{-- <x-nav-link :href="route('tag.index')" :active="request()->routeIs('tag.*')">
-                        {{ __('Tag') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('video.index')" :active="request()->routeIs('video.*')">
-                        {{ __('Video') }}
-                    </x-nav-link> --}}
                 </div>
             </div>
             @auth
@@ -74,6 +57,15 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+            </div>
+            @else
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                    {{ __('Login') }}
+                </x-nav-link>
+                <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    {{ __('Register') }}
+                </x-nav-link>
             </div>
             @endauth
             

@@ -74,12 +74,14 @@ class PlaylistController extends Controller
         $playlist->with('videos','tags','user');
         if ($video !== null) {
             if ($video->available_for == "premium" and !auth()->user()->subscribed('primary')) {
-                return "need premium";
-            } 
+                return "need anjing";
+            }else {
+                return view('pages.playlist.show', compact('playlist','video' ));
+            }
+            
         } else {
             return view('pages.playlist.show', compact('playlist','video'));
         }
-        return view('pages.playlist.show', compact('playlist','video' ));
     }
 
     /**

@@ -22,21 +22,6 @@
                 @enderror
             </div>
 
-            @role('super-admin')
-            <div class="mt-4">
-                <x-label for="role" value="Role" />
-                <select name="role" id="role"
-                    class="block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
-                    @foreach ($roles as $role)
-                        <option {{ auth()->user()->roles()->find($role->id) ? "selected" : "" }} value="{{ $role->name }}">{{ $role->name }}</option>
-                    @endforeach
-                </select>
-                @error('role')
-                    <span class="text-red-900 p-2">{{ $message }}</span>
-                @enderror
-            </div>
-            @endrole
-
             <div class="mt-4">
                 <x-label for="foto_profile" value="Profile" />
                 <input class="block w-full mt-1" type="file" name="foto_profile" />
@@ -81,7 +66,7 @@
         <h1 class="mt-5 text-lg text-gray-600">Subscription</h1>
         <div class="p-3 my-2 bg-white shadow rounded">
             
-            @if (auth()->user()->subscribed('primary'))
+            @if (auth()->user()->subscribed('primary') and !auth()->user()->subscription('primary')->cancelled())
                 <form action="/unsubscribe" method="post">
                     @csrf
                     <x-button type="submit" onclick="return confirm('Unsubscribe are u sure??')">Subscribed</x-button>

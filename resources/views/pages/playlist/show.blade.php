@@ -93,21 +93,23 @@
                                             </form>
                                             @endcan
                                         @endif
-                                            <a href="{{ route('playlist.video',[$playlist->slug,$item->id]) }}" class="text-blue-900">View</a>
+                                            <a href="{{ route('playlist.video',[$playlist->slug,$item->episode]) }}" class="text-blue-900">View</a>
                                         </div>    
                                             
                                     </td>
                                 </tr>    
                                 @empty
-                                    <tr>
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm ">
                                         Data gak ada boss
+                                        </td>
                                     </tr> 
                                 @endforelse   
                             </tbody>
                         </table>
                     </div>
                 </div>                
-                
+                @can('create-video')
                 <button onclick="openModal()" class="block w-full py-2 px-5 bg-gray-800 text-center text-gray-50 hover:bg-gray-900 rounded">Add new video to this playlist</button>
                 <x-modal>
                     <form action="{{ route('video.store') }}" method="post">
@@ -158,6 +160,7 @@
                         <x-button type="submit" class="mt-4">Create</x-button>
                     </form>
                 </x-modal>
+                @endcan
             </div>
         </div>
     </div>

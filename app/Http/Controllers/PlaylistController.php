@@ -48,7 +48,6 @@ class PlaylistController extends Controller
             'description' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:png,jpg,jpeg',
             'tags' => 'nullable|array',
-            'genre' => 'nullable|array',
         ]);
 
         $playlist = Playlist::create([
@@ -57,7 +56,7 @@ class PlaylistController extends Controller
             'description' => $request->description,
             'thumbnail' => $request->thumbnail ? request()->file('thumbnail')->store('image/playlist') : null,
             'user_id' => auth()->user()->id,
-            'genre' => collect($request->genre)->implode(','),
+            // 'genre' => collect($request->genre)->implode(','),
         ]);
         $playlist->syncTags($request->tags);
 

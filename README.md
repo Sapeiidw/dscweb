@@ -21,19 +21,24 @@ list yang sudah
 - Register
 - Verify Email
 - Reset Password
+- Authorization
+- Validation
 
 ## Subscription
 - Subscribe [ Daily, Monthly, Yearly ]
-
-# Doing
-
-# To Do
 - Unsubscribe
-- Swap plan
+
+## Profile
 - Profile CRUD
 - Change password
 - Change foto profile
+
+## General
 - Dashboard
-- Authorization
-- Validation
 - Refactor
+
+# Doing
+- Documentation
+
+# To Do
+- Swap plan

@@ -47,7 +47,8 @@ class VideoController extends Controller
             'code' => 'required|unique:videos,code',
             'duration' => 'required|string',
             'playlists' => 'required',
-            'epsiode' => 'required|numeric',
+            'episode' => 'required|numeric',
+            'available_for' => 'required'
         ]);
 
         $video = Video::create([
@@ -58,6 +59,7 @@ class VideoController extends Controller
             'episode' => $request->episode,
             'available_for' => $request->available_for,
         ]);
+        
         $video->playlists()->sync($request->playlists);
         
         return back()->with('success','Video was Created!!');

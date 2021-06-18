@@ -74,7 +74,7 @@ class PlaylistController extends Controller
         $playlist->with('videos','tags','user');
         if ($video !== null) {
             if ($video->available_for == "premium" and !auth()->user()->subscribed('primary')) {
-                return "need anjing";
+                return "Butuh premium";
             }else {
                 return view('pages.playlist.show', compact('playlist','video' ));
             }
@@ -105,6 +105,9 @@ class PlaylistController extends Controller
      */
     public function update(Request $request, Playlist $playlist)
     {
+        if (auth()->user()->id != $playlist->user_id) {
+            return abort(403);
+        }
         $request->validate([
             'name' => 'required|string|unique:playlists,name,'.$playlist->id,
             'description' => 'nullable|string',

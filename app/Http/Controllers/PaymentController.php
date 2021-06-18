@@ -30,8 +30,7 @@ class PaymentController extends Controller
         $user = auth()->user();
         $paymentMethod = $request->payment_method;
 
-        $planId = $request->plan;
-        $user->newSubscription('primary', $planId)->create($paymentMethod);
+        $user->newSubscription('primary', $request->plan)->create($paymentMethod);
 
         return response([
             'success_url'=> redirect()->intended('/')->getTargetUrl(),

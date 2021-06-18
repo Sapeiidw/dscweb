@@ -84,15 +84,19 @@
 
                                 <x-td>
                                     <div class="flex flex-row w-20 justify-between">
-                                        @can('edit-playlist')
-                                        <a href="{{ route('playlist.edit',$item->slug) }}" class="text-blue-900">Edit</a>    
+                                        @can('update-playlist')
+                                            @if (auth()->user()->id == $item->user_id)
+                                                <a href="{{ route('playlist.edit',$item->slug) }}" class="text-blue-900">Edit</a>    
+                                            @endif     
                                         @endcan
                                         @can('delete-playlist')
-                                        <form action="{{ route('playlist.destroy', $item->slug) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" onclick="return confirm('Are u Sure!!')" class="text-red-900">Delete</button>
-                                        </form>
+                                            @if (auth()->user()->id == $item->user_id)
+                                            <form action="{{ route('playlist.destroy', $item->slug) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" onclick="return confirm('Are u Sure!!')" class="text-red-900">Delete</button>
+                                            </form>
+                                            @endif
                                         @endcan
                                         
                                     </div>

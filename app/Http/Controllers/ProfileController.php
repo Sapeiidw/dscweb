@@ -15,8 +15,9 @@ class ProfileController extends Controller
         return view('profile');
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request,$id)
     {
+        $user = User::find($id);
         $request->validate([
             'name' => "required|string",
             'email' => "required|email|unique:users,email,".$user->id,

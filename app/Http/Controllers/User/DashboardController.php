@@ -17,4 +17,5 @@ class DashboardController extends Controller
         $tags = Tag::all();
         return view('welcome', compact('playlists','tags'));
     }
+    
 }

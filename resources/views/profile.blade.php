@@ -2,7 +2,7 @@
     <x-alert />
     <div class="w-2/3 mx-auto">
         <h1 class="mt-5 text-lg text-gray-600">Profile</h1>
-        <form action="{{ route('user.update', auth()->user()->id) }}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('profile.update', auth()->user()->id) }}" method="post" enctype="multipart/form-data"
             class="p-3 my-2 bg-white shadow rounded">
             @csrf
             @method('put')
